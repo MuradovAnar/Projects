@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "E:\\Project_ara_folder"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Project_ara_folder"
+	}
+}
