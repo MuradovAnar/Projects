@@ -168,6 +168,8 @@ const modalTrigger = document.querySelectorAll('[data-modal]'),
         document.body.style.overflow = '';
     }
 
+    //modalCloseBtn.addEventListener('click', closeModal);
+
     modal.addEventListener('click', (e) => { // закрыть модальное окно при клике не в пустое пространство
         if (e.target === modal || e.target.getAttribute('data-close') == "") { // вторая часть условия: если у элемента есть атрибут data-close - можно будет закрыть на крестить окно 
         // modal.classList.add('hide');
@@ -184,7 +186,7 @@ const modalTrigger = document.querySelectorAll('[data-modal]'),
     });
 
     const modalTimerId = setTimeout(openModal, 50000);
-    //modalCloseBtn.addEventListener('click', closeModal);
+    
 
     function showModalByScroll() { 
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { //прокрученная часть + видимая часть >= полной прокруткой(полным сайтом)
@@ -315,12 +317,12 @@ function postData(formm) { // функция отвечает за отправ�
         statusMessage.src = Message.loading; //добавляем спинер
         // statusMessage.classList.add('status');
         // statusMessage.textContent = Message.loading; // после срабатывания события submit (нажатие на кнопки отправки) Пользователь с помощью текст контента получит сообзение "загрузка"
-        statusMessage.style.cssText =`
+        statusMessage.style.cssText =` 
             display: block;
             margin: 0 auto;
             `;
         //formm.append(statusMessage); //добавяет новый созданный элемент на страницу
-        formm.insertAdjacentElement('afterend', statusMessage);
+        formm.insertAdjacentElement('afterend', statusMessage); //позволяет изменять расположение элемента в дом дереве.
         
         const request = new XMLHttpRequest(); // создаем объект отвечающий за создание запросов.
         // вызов методов XMLHttpRequest()
@@ -350,11 +352,12 @@ function postData(formm) { // функция отвечает за отправ�
                 
                 formm.reset(); //сброс форм 
                 // setTimeout(() => {
-                // statusMessage.remove();
-                // }, 2000); // убираем таймер т к статусмеседж будет использоваться только для события лодинг спинера. И теперь там другое модальое окно
+                // closeModal();
+                // }, 1000); // убираем таймер т к статусмеседж будет использоваться только для события лодинг спинера. И теперь там другое модальое окно
                 statusMessage.remove(); //удаляем спинер
-
-            } else {
+                
+                
+                } else {
                 // statusMessage.textContent = Message.failure;
                 showThanksModal(Message.failure);
             }
@@ -378,15 +381,17 @@ function postData(formm) { // функция отвечает за отправ�
             <div class="modal__title">${messege}</div>
         </div>
         `;
+        
 
         //вставляем вместо старого окна, новое с благодарностью
         document.querySelector('.modal').append(thanksModal); //добавляем новое модальное окно с благодарностью.
         //чтобы спустя какое то время пользователь снова смог повторно отправить форму.    
         setTimeout( () => { 
             thanksModal.remove(); //удаляем благодарность, чтобы по новой форму запилить
-            prevModalDialog.classList.add('hide'); //снова восстанавливаем изначальную форму с именем и номером
-            prevModalDialog.classList.remove('show'); // удаляем класс хайд
-        }, 2000); 
+            // prevModalDialog.classList.add('show'); //снова восстанавливаем изначальную форму с именем и номером
+            prevModalDialog.classList.remove('hide'); // удаляем класс хайд
+            closeModal();
+        }, 1500); 
    
     }  
        

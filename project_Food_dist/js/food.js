@@ -43,7 +43,7 @@ const tabs = document.querySelectorAll('.tabheader__item'),
  
 // timer
 
-    const deadline = '2022-05-24'; 
+    const deadline = '2022-08-24'; 
 
     function getTimeRemaining(deadline) {  
         const t = Date.parse(deadline) - Date.parse(new Date()), 
@@ -95,7 +95,7 @@ const tabs = document.querySelectorAll('.tabheader__item'),
         }
     }
 
-    // setClock('.timer', deadline);
+    setClock('.timer', deadline);
 
     
 // modal
@@ -110,7 +110,7 @@ const modalTrigger = document.querySelectorAll('[data-modal]'),
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
-        clearInterval(modalTimerId); //отмена повторного всплытия модального окна по истечению таймпера.
+        clearInterval(modalTimerId); 
     }  
 
     modalTrigger.forEach(btn => {
@@ -225,7 +225,7 @@ class MenuCard {
     
 // forms
 
-const forms = document.querySelectorAll('form');
+const forms = document.querySelectorAll('form'); // 
 console.log(forms);      
 
 const Message = {
@@ -241,15 +241,15 @@ forms.forEach(item => {
 
 function postData(formm) { 
     formm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
+        e.preventDefault(); 
         const statusMessage = document.createElement('img');  
-        statusMessage.src = Message.loading;
-        statusMessage.style.cssText =`
+        statusMessage.src = Message.loading; 
+        statusMessage.style.cssText =` 
             display: block;
             margin: 0 auto;
             `;
-        formm.insertAdjacentElement('afterend', statusMessage);
+        
+        formm.insertAdjacentElement('afterend', statusMessage); 
         
         const request = new XMLHttpRequest(); 
         request.open('POST', 'server.php');
@@ -257,6 +257,8 @@ function postData(formm) {
         
         const formData = new FormData(formm); 
         
+        
+
         const object = {};
         formData.forEach( function (value, key) {
             object[key] = value;
@@ -264,15 +266,16 @@ function postData(formm) {
 
         const json = JSON.stringify(object);
         request.send(json); 
-        
+                
         request.addEventListener('load', ()=> { 
             if(request.status === 200) {
-                console.log(request.response);            
+                console.log(request.response);           
                 showThanksModal(Message.succsess);
                 formm.reset(); 
                 statusMessage.remove();
-
-            } else {
+                
+                
+                } else {
                 showThanksModal(Message.failure);
             }
         });   
@@ -282,26 +285,24 @@ function postData(formm) {
 
     function showThanksModal(messege) { 
         const prevModalDialog = document.querySelector('.modal__dialog'); 
+                   
         prevModalDialog.classList.add('hide');
         openModal();
         
-        const thanksModal = document.createElement('div');
-        thanksModal.classList.add('.modal__dialog');
+        const thanksModal = document.createElement('div'); 
+        thanksModal.classList.add('.modal__dialog'); 
         thanksModal.innerHTML =` 
         <div class="modal__content">
             <div class="modal__close" data-close>×</div>
             <div class="modal__title">${messege}</div>
         </div>
         `;
-
         
-        document.querySelector('.modal').append(thanksModal);
-        setTimeout( () => { 
-            thanksModal.remove(); 
-            prevModalDialog.classList.add('hide'); 
-            prevModalDialog.classList.remove('show'); 
-        }, 2000); 
-   
-    }  
-       
+        document.querySelector('.modal').append(thanksModal); 
+            setTimeout( () => { 
+                thanksModal.remove();
+                prevModalDialog.classList.remove('hide'); 
+                closeModal();
+        }, 1500); 
+    }      
 });
