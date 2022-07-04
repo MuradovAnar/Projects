@@ -382,3 +382,5 @@ const slides = document.querySelectorAll('.offer__slide'),
         }
 
     });
+
+    //
