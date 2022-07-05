@@ -142,7 +142,7 @@ const modalTrigger = document.querySelectorAll('[data-modal]'),
     
 
     function showModalByScroll() { 
-        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { //прокрученная часть + видимая часть >= полной прокруткой(полным сайтом)
+        if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) { 
         openModal();
         window.removeEventListener('scroll', showModalByScroll);
     }
@@ -224,7 +224,7 @@ class MenuCard {
       
 // forms
 
-const forms = document.querySelectorAll('form'); // 
+const forms = document.querySelectorAll('form');
 console.log(forms);      
 
 const Message = {
